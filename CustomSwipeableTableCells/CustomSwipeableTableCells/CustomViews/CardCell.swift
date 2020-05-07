@@ -40,12 +40,6 @@ class CardCell: UITableViewCell {
         viewCard.layer.shadowOffset = CGSize.init(width: 1.0, height: 1.0)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }
 
 extension CardCell: SwipeableViewDelegate {

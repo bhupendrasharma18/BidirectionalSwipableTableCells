@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         tblView.separatorStyle = .none
     }
     
+    /* cardDidSwipe: updates the indexPath to keep track of recent swiped cell */
     private func cardDidSwipe(in cell: CardCell) {
         if let indexPath = tblView.indexPath(for: cell) {
             if let lastIndexPath = lastSwipedIndexPath, lastIndexPath != indexPath {
@@ -38,14 +39,16 @@ class ViewController: UIViewController {
         }
     }
     
+    /* resetRecentCardCell - method will reset swipe of the cell for lastSwipedIndexPath */
     private func resetRecentCardCell() {
-        if let lastIndexpath = lastSwipedIndexPath {
-            if let lastCell: CardCell = tblView.cellForRow(at: lastIndexpath) as? CardCell {
+        if let lastIndexPath = lastSwipedIndexPath {
+            if let lastCell: CardCell = tblView.cellForRow(at: lastIndexPath) as? CardCell {
                 lastCell.viewCard.resetCardView()
             }
         }
     }
     
+    /* animateSwipeView - will render swipe and back animation for cells one to give hint of swipable cells */
     @objc private func animateSwipeView(indexPath: IndexPath?) {
         guard let indexPath = indexPath else { return }
         if let cell: CardCell = tblView.cellForRow(at: indexPath) as? CardCell {
@@ -94,7 +97,8 @@ extension ViewController: UITableViewDelegate {
 }
 
 extension ViewController: UIScrollViewDelegate {
+    /* This will reset last swiped cardCell when tableView is scrolled */
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+        resetRecentCardCell()
     }
 }
