@@ -17,7 +17,25 @@ class CardCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        cellAppearances()
+    }
+    
+    private func cellAppearances() {
         self.backgroundColor = color172027
+        viewContainer.backgroundColor = color293445
+        viewCard.backgroundColor = color110145132
+        
+        viewContainer.clipsToBounds = true
+
+        viewContainer.layer.cornerRadius = 8.0
+        viewContainer.layer.shadowRadius = 10.0
+        viewContainer.layer.shadowOpacity = 0.9
+        viewContainer.layer.shadowOffset = CGSize.init(width: 1.0, height: 1.0)
+        
+        viewCard.layer.cornerRadius = 8.0
+        viewCard.layer.shadowRadius = 3.0
+        viewCard.layer.shadowOpacity = 0.5
+        viewCard.layer.shadowOffset = CGSize.init(width: 1.0, height: 1.0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
