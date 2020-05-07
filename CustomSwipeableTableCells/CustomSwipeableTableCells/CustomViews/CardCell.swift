@@ -13,11 +13,13 @@ class CardCell: UITableViewCell {
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var viewCard: SwipeableView!
     @IBOutlet weak var lblCardNumber: UILabel!
+    var cardDidSwipeInCell: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         cellAppearances()
+        viewCard.delegate = self
     }
     
     private func cellAppearances() {
@@ -44,4 +46,12 @@ class CardCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+extension CardCell: SwipeableViewDelegate {
+    func cardDidSwipe() {
+        if cardDidSwipeInCell != nil {
+            cardDidSwipeInCell!()
+        }
+    }
 }

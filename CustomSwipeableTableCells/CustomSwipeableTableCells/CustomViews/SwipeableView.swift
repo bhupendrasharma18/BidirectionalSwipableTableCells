@@ -14,6 +14,10 @@ enum SwipeState {
     case right
 }
 
+protocol SwipeableViewDelegate: class {
+    func cardDidSwipe()
+}
+
 class SwipeableView: UIView {
     
     var xFromCenter: CGFloat!
@@ -25,6 +29,8 @@ class SwipeableView: UIView {
             
     let duration = 0.2
     let swipingScaleX: CGFloat = UIScreen.main.bounds.size.width / 2
+    
+    weak var delegate: SwipeableViewDelegate?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -49,6 +55,7 @@ class SwipeableView: UIView {
                 if swipeState == .normal {
                     swipeState = .left
                     animateView(for: originalPoint.x - swipingScaleX)
+                    delegate?.cardDidSwipe()
                 }
                 else if swipeState == .right {
                     resetCardView()
@@ -58,6 +65,7 @@ class SwipeableView: UIView {
                 if swipeState == .normal {
                     swipeState = .right
                     animateView(for: originalPoint.x + swipingScaleX)
+                    delegate?.cardDidSwipe()
                 }
                 else if swipeState == .left {
                     resetCardView()
@@ -72,7 +80,7 @@ class SwipeableView: UIView {
         }
     }
     
-    private func resetCardView() {
+    func resetCardView() {
         swipeState = .normal
         if originalPoint == nil {
             return

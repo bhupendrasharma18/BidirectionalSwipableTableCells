@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tblView: UITableView!
     let cardCellIdentifier = "CardCellIdentifier"
     var timeDelay = 1.0
+    var lastSwipedIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,23 @@ class ViewController: UIViewController {
         tblView.register(UINib.init(nibName: "CardCell", bundle: nil), forCellReuseIdentifier: cardCellIdentifier)
         tblView.rowHeight = 200.0
         tblView.separatorStyle = .none
+    }
+    
+    private func cardDidSwipe(in cell: CardCell) {
+        if let indexPath = tblView.indexPath(for: cell) {
+            if let lastIndexPath = lastSwipedIndexPath, lastIndexPath != indexPath {
+                resetRecentCardCell()
+            }
+            lastSwipedIndexPath = indexPath
+        }
+    }
+    
+    private func resetRecentCardCell() {
+        if let lastIndexpath = lastSwipedIndexPath {
+            if let lastCell: CardCell = tblView.cellForRow(at: lastIndexpath) as? CardCell {
+                lastCell.viewCard.resetCardView()
+            }
+        }
     }
     
     @objc private func animateSwipeView(indexPath: IndexPath?) {
@@ -53,6 +71,9 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CardCell = tableView.dequeueReusableCell(withIdentifier: cardCellIdentifier) as! CardCell
         cell.selectionStyle = .none
+        cell.cardDidSwipeInCell = { [weak self] in
+            self?.cardDidSwipe(in: cell)
+        }
         return cell
     }
 
