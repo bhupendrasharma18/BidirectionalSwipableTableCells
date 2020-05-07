@@ -10,9 +10,14 @@ import UIKit
 
 class CardCell: UITableViewCell {
 
+    @IBOutlet weak var viewContainer: UIView!
+    @IBOutlet weak var viewCard: SwipeableView!
+    @IBOutlet weak var lblCardNumber: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.backgroundColor = color172027
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
