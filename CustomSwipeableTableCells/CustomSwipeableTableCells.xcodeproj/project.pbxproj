@@ -15,6 +15,9 @@
 		7354B86A24645F9100ADAC9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7354B86824645F9100ADAC9D /* LaunchScreen.storyboard */; };
 		7354B87524645F9100ADAC9D /* CustomSwipeableTableCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7354B87424645F9100ADAC9D /* CustomSwipeableTableCellsTests.swift */; };
 		7354B88024645F9100ADAC9D /* CustomSwipeableTableCellsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7354B87F24645F9100ADAC9D /* CustomSwipeableTableCellsUITests.swift */; };
+		7354B8902464671B00ADAC9D /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7354B88E2464671B00ADAC9D /* CardCell.swift */; };
+		7354B8912464671B00ADAC9D /* CardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7354B88F2464671B00ADAC9D /* CardCell.xib */; };
+		7354B8932464695800ADAC9D /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7354B8922464695800ADAC9D /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		7354B87B24645F9100ADAC9D /* CustomSwipeableTableCellsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomSwipeableTableCellsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7354B87F24645F9100ADAC9D /* CustomSwipeableTableCellsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwipeableTableCellsUITests.swift; sourceTree = "<group>"; };
 		7354B88124645F9100ADAC9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7354B88E2464671B00ADAC9D /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		7354B88F2464671B00ADAC9D /* CardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCell.xib; sourceTree = "<group>"; };
+		7354B8922464695800ADAC9D /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +105,11 @@
 		7354B85C24645F9000ADAC9D /* CustomSwipeableTableCells */ = {
 			isa = PBXGroup;
 			children = (
+				7354B88D246466E400ADAC9D /* CustomViews */,
 				7354B85D24645F9000ADAC9D /* AppDelegate.swift */,
 				7354B85F24645F9000ADAC9D /* SceneDelegate.swift */,
 				7354B86124645F9000ADAC9D /* ViewController.swift */,
+				7354B8922464695800ADAC9D /* Utility.swift */,
 				7354B86324645F9000ADAC9D /* Main.storyboard */,
 				7354B86624645F9100ADAC9D /* Assets.xcassets */,
 				7354B86824645F9100ADAC9D /* LaunchScreen.storyboard */,
@@ -126,6 +134,15 @@
 				7354B88124645F9100ADAC9D /* Info.plist */,
 			);
 			path = CustomSwipeableTableCellsUITests;
+			sourceTree = "<group>";
+		};
+		7354B88D246466E400ADAC9D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				7354B88E2464671B00ADAC9D /* CardCell.swift */,
+				7354B88F2464671B00ADAC9D /* CardCell.xib */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +252,7 @@
 				7354B86A24645F9100ADAC9D /* LaunchScreen.storyboard in Resources */,
 				7354B86724645F9100ADAC9D /* Assets.xcassets in Resources */,
 				7354B86524645F9000ADAC9D /* Main.storyboard in Resources */,
+				7354B8912464671B00ADAC9D /* CardCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7354B8932464695800ADAC9D /* Utility.swift in Sources */,
 				7354B86224645F9000ADAC9D /* ViewController.swift in Sources */,
 				7354B85E24645F9000ADAC9D /* AppDelegate.swift in Sources */,
 				7354B86024645F9000ADAC9D /* SceneDelegate.swift in Sources */,
+				7354B8902464671B00ADAC9D /* CardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
