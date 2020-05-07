@@ -24,7 +24,7 @@ class SwipeableView: UIView {
     var rightSwipeGestureRecognizer: UISwipeGestureRecognizer!
             
     let duration = 0.2
-    let swipingScaleX: CGFloat = UIScreen.main.bounds.size.width / 2//130.0
+    let swipingScaleX: CGFloat = UIScreen.main.bounds.size.width / 2
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -48,7 +48,7 @@ class SwipeableView: UIView {
             if gestureRecognizer == leftSwipeGestureRecognizer {
                 if swipeState == .normal {
                     swipeState = .left
-                    swipeLeft()
+                    animateView(for: originalPoint.x - swipingScaleX)
                 }
                 else if swipeState == .right {
                     resetCardView()
@@ -57,7 +57,7 @@ class SwipeableView: UIView {
             if gestureRecognizer == rightSwipeGestureRecognizer {
                 if swipeState == .normal {
                     swipeState = .right
-                    swipeRight()
+                    animateView(for: originalPoint.x + swipingScaleX)
                 }
                 else if swipeState == .left {
                     resetCardView()
@@ -66,27 +66,18 @@ class SwipeableView: UIView {
         }
     }
     
+    private func animateView(for pointX: CGFloat) {
+        UIView.animate(withDuration: duration) {
+            self.center = CGPoint(x: pointX, y: self.originalPoint.y)
+        }
+    }
+    
     func resetCardView() {
         swipeState = .normal
         if originalPoint == nil {
             return
         }
-        UIView.animate(withDuration: duration) {
-            self.center = self.originalPoint
-        }
+        animateView(for: originalPoint.x)
     }
     
-    private func swipeLeft() {
-        let finishPoint = CGPoint.init(x: originalPoint.x - swipingScaleX, y: originalPoint.y)
-        UIView.animate(withDuration: duration) {
-            self.center = finishPoint
-        }
-    }
-    
-    private func swipeRight() {
-        let finishPoint = CGPoint.init(x: originalPoint.x + swipingScaleX, y: originalPoint.y)
-        UIView.animate(withDuration: duration) {
-            self.center = finishPoint
-        }
-    }
 }
