@@ -72,12 +72,22 @@ class SwipeableView: UIView {
         }
     }
     
-    func resetCardView() {
+    private func resetCardView() {
         swipeState = .normal
         if originalPoint == nil {
             return
         }
         animateView(for: originalPoint.x)
+    }
+    
+    func swipeLeftAndReset() {
+        originalPoint = center
+        let finishPoint = CGPoint.init(x: originalPoint.x - swipingScaleX, y: originalPoint.y)
+        UIView.animate(withDuration: duration, animations: {
+            self.center = finishPoint
+        }) { (completed: Bool) in
+            self.resetCardView()
+        }
     }
     
 }

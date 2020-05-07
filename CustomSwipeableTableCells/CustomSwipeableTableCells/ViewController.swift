@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tblView: UITableView!
     let cardCellIdentifier = "CardCellIdentifier"
+    var timeDelay = 1.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,16 @@ class ViewController: UIViewController {
         tblView.register(UINib.init(nibName: "CardCell", bundle: nil), forCellReuseIdentifier: cardCellIdentifier)
         tblView.rowHeight = 200.0
         tblView.separatorStyle = .none
+    }
+    
+    @objc private func animateSwipeView(indexPath: IndexPath?) {
+        guard let indexPath = indexPath else { return }
+        if let cell: CardCell = tblView.cellForRow(at: indexPath) as? CardCell {
+            cell.viewCard.swipeLeftAndReset()
+        }
+        if UserDefaults.standard.object(forKey: "SwipeAnimation") == nil {
+            UserDefaults.standard.set("SwipeAnimation", forKey: "SwipeAnimation")
+        }
     }
 
 }
@@ -50,7 +61,10 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
+        if UserDefaults.standard.object(forKey: "SwipeAnimation") == nil {
+            timeDelay += 0.1
+            self.perform(#selector(animateSwipeView), with: indexPath, afterDelay: timeDelay)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
