@@ -16,6 +16,7 @@ enum SwipeState {
 
 protocol SwipeableViewDelegate: class {
     func cardDidSwipe()
+    func cardWillSwipe(state: SwipeState)
 }
 
 class SwipeableView: UIView {
@@ -54,6 +55,7 @@ class SwipeableView: UIView {
             if gestureRecognizer == leftSwipeGestureRecognizer {
                 if swipeState == .normal {
                     swipeState = .left
+                    delegate?.cardWillSwipe(state: swipeState)
                     animateView(for: originalPoint.x - swipingScaleX)
                     delegate?.cardDidSwipe()
                 }
@@ -64,6 +66,7 @@ class SwipeableView: UIView {
             if gestureRecognizer == rightSwipeGestureRecognizer {
                 if swipeState == .normal {
                     swipeState = .right
+                    delegate?.cardWillSwipe(state: swipeState)
                     animateView(for: originalPoint.x + swipingScaleX)
                     delegate?.cardDidSwipe()
                 }
@@ -74,12 +77,14 @@ class SwipeableView: UIView {
         }
     }
     
+    /* animateView- animates the card for the left, right or center according to new x point */
     private func animateView(for pointX: CGFloat) {
         UIView.animate(withDuration: duration) {
             self.center = CGPoint(x: pointX, y: self.originalPoint.y)
         }
     }
     
+    /* Brings card view in its original position and sets swipeState to normal */
     func resetCardView() {
         swipeState = .normal
         if originalPoint == nil {

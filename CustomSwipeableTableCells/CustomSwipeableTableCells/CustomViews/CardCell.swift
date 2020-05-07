@@ -15,11 +15,17 @@ class CardCell: UITableViewCell {
     @IBOutlet weak var lblCardNumber: UILabel!
     var cardDidSwipeInCell: (() -> Void)?
     
+    var viewActionItems: UIView!
+    var centerConstraintViewAction: NSLayoutConstraint!
+    let heightViewActionItems: CGFloat = 180
+    let widthViewActionItems: CGFloat = UIScreen.main.bounds.size.width / 2 - 50
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         cellAppearances()
         viewCard.delegate = self
+        createActionItemsView()
     }
     
     private func cellAppearances() {
@@ -39,6 +45,19 @@ class CardCell: UITableViewCell {
         viewCard.layer.shadowOpacity = 0.5
         viewCard.layer.shadowOffset = CGSize.init(width: 1.0, height: 1.0)
     }
+    
+    private func createActionItemsView() {
+        viewActionItems = UIView.init()
+        viewContainer.addSubview(viewActionItems)
+//        viewActionItems.backgroundColor = .red
+        viewActionItems.translatesAutoresizingMaskIntoConstraints = false
+        Constraints.verticalConstraint(control: viewActionItems, parent: viewContainer, constant: 0)
+        Constraints.widthConstraint(control: viewActionItems, controlWidth: widthViewActionItems)
+        Constraints.heightConstraint(control: viewActionItems, controlHeight: heightViewActionItems)
+        centerConstraintViewAction = NSLayoutConstraint(item: viewActionItems!, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewContainer, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 100)
+        viewContainer.addConstraint(centerConstraintViewAction)
+        viewContainer.bringSubviewToFront(viewCard)
+    }
 
 }
 
@@ -46,6 +65,13 @@ extension CardCell: SwipeableViewDelegate {
     func cardDidSwipe() {
         if cardDidSwipeInCell != nil {
             cardDidSwipeInCell!()
+        }
+    }
+    
+    func cardWillSwipe(state: SwipeState) {
+        self.centerConstraintViewAction.constant = (state == .left) ? 100 : -100
+        UIView.animate(withDuration: 0.05) {
+            self.viewContainer.layoutIfNeeded()
         }
     }
 }
