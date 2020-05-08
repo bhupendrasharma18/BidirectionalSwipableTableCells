@@ -71,6 +71,7 @@ class ViewController: UIViewController {
             cell.viewCard.swipeLeftAndReset()
         }
         isSwipeHintCompleted = true
+        tblView.isUserInteractionEnabled = true
 //        if UserDefaults.standard.object(forKey: "SwipeAnimation") == nil {
 //            UserDefaults.standard.set("SwipeAnimation", forKey: "SwipeAnimation")
 //        }
@@ -114,6 +115,7 @@ extension ViewController: UITableViewDelegate {
 //        }
         if !isSwipeHintCompleted {
             timeDelay += 0.1
+            tblView.isUserInteractionEnabled = false //Used to avoid interaction during autoswiping on app launch
             self.perform(#selector(animateSwipeView), with: indexPath, afterDelay: timeDelay)
         }
     }
