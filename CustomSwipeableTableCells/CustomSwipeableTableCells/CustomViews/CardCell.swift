@@ -22,7 +22,9 @@ class CardCell: UITableViewCell {
     let widthViewActionItems: CGFloat = UIScreen.main.bounds.size.width / 2 - 50
     
     let VIEW_ACTION_HEIGHT: CGFloat = 180
+    let VIEW_ACTION_HORIZONTAL_SPACE: CGFloat = 100
     let BUTTON_HEIGHT: CGFloat = 44
+    let BUTTON_WIDTH: CGFloat = 100
     let MIDDLE_SPACING: CGFloat = 5
     
     var cardViewModel: CardViewModel? {
@@ -68,7 +70,7 @@ class CardCell: UITableViewCell {
         Constraints.verticalConstraint(control: viewActionItems, parent: viewContainer, constant: 0)
         Constraints.widthConstraint(control: viewActionItems, controlWidth: widthViewActionItems)
         Constraints.heightConstraint(control: viewActionItems, controlHeight: VIEW_ACTION_HEIGHT)
-        centerConstraintViewAction = NSLayoutConstraint(item: viewActionItems!, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewContainer, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 100)
+        centerConstraintViewAction = NSLayoutConstraint(item: viewActionItems!, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewContainer, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: VIEW_ACTION_HORIZONTAL_SPACE)
         viewContainer.addConstraint(centerConstraintViewAction)
         viewContainer.bringSubviewToFront(viewCard)
     }
@@ -101,7 +103,7 @@ class CardCell: UITableViewCell {
                 }
                 btn.setTitle(btnTitle, for: .normal)
                 
-                Constraints.widthConstraint(control: btn, controlWidth: 100)
+                Constraints.widthConstraint(control: btn, controlWidth: BUTTON_WIDTH)
                 Constraints.heightConstraint(control: btn, controlHeight: BUTTON_HEIGHT)
                 Constraints.horizontalConstraint(control: btn, parent: viewActionItems, constant: 0)
                 if let tmpBtn = tempBtn {
@@ -120,18 +122,19 @@ class CardCell: UITableViewCell {
     @objc func actionButtonClicked(_ sender: UIButton!) {
         let index = sender.tag
         if let items = cardViewModel?.actionItems, index < items.count {
+            let cardNumber = cardViewModel?.cardNumber ?? ""
             var title = ""
             var message = ""
             switch items[index] {
             case .payNow:
                 title = "Pay Now"
-                message = "Proceed to pay utility bills"
+                message = "Pay utility bills from card \(cardNumber)"
             case .viewDetails:
                 title = "View Details"
-                message = "Proceed to view card details"
+                message = "View card \(cardNumber) details"
             case .transactions:
                 title = "Transactions"
-                message = "Proceed to see all transactions from this card"
+                message = "See all transactions from card \(cardNumber)"
             }
             if actionItemClicked != nil {
                 actionItemClicked!(title, message)
@@ -149,7 +152,7 @@ extension CardCell: SwipeableViewDelegate {
     }
     
     func cardWillSwipe(state: SwipeState) {
-        self.centerConstraintViewAction.constant = (state == .left) ? 100 : -100
+        self.centerConstraintViewAction.constant = (state == .left) ? VIEW_ACTION_HORIZONTAL_SPACE : -VIEW_ACTION_HORIZONTAL_SPACE
         UIView.animate(withDuration: 0.05) {
             self.viewContainer.layoutIfNeeded()
         }

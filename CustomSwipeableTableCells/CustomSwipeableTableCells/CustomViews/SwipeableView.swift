@@ -29,7 +29,7 @@ class SwipeableView: UIView {
     var rightSwipeGestureRecognizer: UISwipeGestureRecognizer!
             
     let duration = 0.2
-    let swipingScaleX: CGFloat = UIScreen.main.bounds.size.width / 2
+    let swipingScaleX: CGFloat = UIScreen.main.bounds.size.width / 2.5
     
     weak var delegate: SwipeableViewDelegate?
     
