@@ -20,10 +20,10 @@
                         <rect key="frame" x="20" y="10" width="280" height="118"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUG-iU-Fir" customClass="SwipeableView" customModule="CustomSwipeableTableCells" customModuleProvider="target">
-                                <rect key="frame" x="20" y="0.0" width="240" height="118"/>
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="118"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4335 XXXX XXXX 4383" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMN-IK-LKQ">
-                                        <rect key="frame" x="20" y="87" width="200" height="21"/>
+                                        <rect key="frame" x="20" y="56" width="240" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Swp-5m-0SP"/>
                                         </constraints>
@@ -31,21 +31,31 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BHUPENDRA SHARMA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTP-bY-KwW">
+                                        <rect key="frame" x="20" y="82" width="240" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="RMN-IK-LKQ" secondAttribute="bottom" constant="10" id="LUF-aw-q9w"/>
+                                    <constraint firstItem="RMN-IK-LKQ" firstAttribute="trailing" secondItem="jTP-bY-KwW" secondAttribute="trailing" id="4ZH-rv-OOI"/>
+                                    <constraint firstItem="RMN-IK-LKQ" firstAttribute="leading" secondItem="jTP-bY-KwW" secondAttribute="leading" id="Ugu-wB-SGW"/>
                                     <constraint firstItem="RMN-IK-LKQ" firstAttribute="leading" secondItem="hUG-iU-Fir" secondAttribute="leading" constant="20" id="gWy-Kb-bAZ"/>
                                     <constraint firstAttribute="trailing" secondItem="RMN-IK-LKQ" secondAttribute="trailing" constant="20" id="gcg-Jp-5LO"/>
+                                    <constraint firstAttribute="bottom" secondItem="jTP-bY-KwW" secondAttribute="bottom" constant="15" id="o9n-7q-CB3"/>
+                                    <constraint firstItem="jTP-bY-KwW" firstAttribute="top" secondItem="RMN-IK-LKQ" secondAttribute="bottom" constant="5" id="p7b-Bz-sWU"/>
+                                    <constraint firstItem="RMN-IK-LKQ" firstAttribute="height" secondItem="jTP-bY-KwW" secondAttribute="height" id="wSf-e0-Iql"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="hUG-iU-Fir" firstAttribute="top" secondItem="4wf-y5-jIv" secondAttribute="top" id="bW9-Lb-XvN"/>
-                            <constraint firstAttribute="trailing" secondItem="hUG-iU-Fir" secondAttribute="trailing" constant="20" symbolic="YES" id="koZ-Pj-skP"/>
+                            <constraint firstAttribute="trailing" secondItem="hUG-iU-Fir" secondAttribute="trailing" id="koZ-Pj-skP"/>
                             <constraint firstAttribute="bottom" secondItem="hUG-iU-Fir" secondAttribute="bottom" id="kts-AT-ESK"/>
-                            <constraint firstItem="hUG-iU-Fir" firstAttribute="leading" secondItem="4wf-y5-jIv" secondAttribute="leading" constant="20" symbolic="YES" id="ky5-sK-6vE"/>
+                            <constraint firstItem="hUG-iU-Fir" firstAttribute="leading" secondItem="4wf-y5-jIv" secondAttribute="leading" id="ky5-sK-6vE"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -59,6 +69,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="lblCardNumber" destination="RMN-IK-LKQ" id="JFN-AC-1c2"/>
+                <outlet property="lblName" destination="jTP-bY-KwW" id="p8q-hz-fyk"/>
                 <outlet property="viewCard" destination="hUG-iU-Fir" id="z16-n8-NxV"/>
                 <outlet property="viewContainer" destination="4wf-y5-jIv" id="1rc-hp-zWi"/>
             </connections>

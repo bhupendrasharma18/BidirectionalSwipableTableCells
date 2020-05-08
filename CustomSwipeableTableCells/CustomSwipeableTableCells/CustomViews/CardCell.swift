@@ -13,18 +13,23 @@ class CardCell: UITableViewCell {
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var viewCard: SwipeableView!
     @IBOutlet weak var lblCardNumber: UILabel!
+    @IBOutlet weak var lblName: UILabel!
     var cardDidSwipeInCell: (() -> Void)?
     var actionItemClicked: ((_ title: String?, _ message: String?) -> Void)?
     
     var viewActionItems: UIView!
     var centerConstraintViewAction: NSLayoutConstraint!
-    let heightViewActionItems: CGFloat = 180
     let widthViewActionItems: CGFloat = UIScreen.main.bounds.size.width / 2 - 50
+    
+    let VIEW_ACTION_HEIGHT: CGFloat = 180
+    let BUTTON_HEIGHT: CGFloat = 44
+    let MIDDLE_SPACING: CGFloat = 5
     
     var cardViewModel: CardViewModel? {
         didSet {
             guard let card = cardViewModel  else { return }
             lblCardNumber.text = "\(card.cardNumber ?? "XXXX XXXX XXXX XXXX")"
+            lblName.text = "\(card.nameOnCard ?? "")"
             createActionButtons()
         }
     }
@@ -62,7 +67,7 @@ class CardCell: UITableViewCell {
         viewActionItems.translatesAutoresizingMaskIntoConstraints = false
         Constraints.verticalConstraint(control: viewActionItems, parent: viewContainer, constant: 0)
         Constraints.widthConstraint(control: viewActionItems, controlWidth: widthViewActionItems)
-        Constraints.heightConstraint(control: viewActionItems, controlHeight: heightViewActionItems)
+        Constraints.heightConstraint(control: viewActionItems, controlHeight: VIEW_ACTION_HEIGHT)
         centerConstraintViewAction = NSLayoutConstraint(item: viewActionItems!, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewContainer, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 100)
         viewContainer.addConstraint(centerConstraintViewAction)
         viewContainer.bringSubviewToFront(viewCard)
@@ -74,9 +79,7 @@ class CardCell: UITableViewCell {
         }
 
         if let actionItems = cardViewModel?.actionItems, actionItems.count > 0 {
-            let btnHeight: CGFloat = 44
-            let middleSpacing: CGFloat = 5
-            let topSpacing: CGFloat = (heightViewActionItems - (CGFloat(actionItems.count) * btnHeight) - (CGFloat(actionItems.count - 1) *  middleSpacing)) / 2
+            let topSpacing: CGFloat = (VIEW_ACTION_HEIGHT - (CGFloat(actionItems.count) * BUTTON_HEIGHT) - (CGFloat(actionItems.count - 1) *  MIDDLE_SPACING)) / 2
             var tempBtn: UIButton?
             for index in 0..<actionItems.count {
                 let actionItem = actionItems[index]
@@ -99,10 +102,10 @@ class CardCell: UITableViewCell {
                 btn.setTitle(btnTitle, for: .normal)
                 
                 Constraints.widthConstraint(control: btn, controlWidth: 100)
-                Constraints.heightConstraint(control: btn, controlHeight: btnHeight)
+                Constraints.heightConstraint(control: btn, controlHeight: BUTTON_HEIGHT)
                 Constraints.horizontalConstraint(control: btn, parent: viewActionItems, constant: 0)
                 if let tmpBtn = tempBtn {
-                    viewActionItems.addConstraint(NSLayoutConstraint(item: btn, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: tmpBtn, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: middleSpacing))
+                    viewActionItems.addConstraint(NSLayoutConstraint(item: btn, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: tmpBtn, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: MIDDLE_SPACING))
                 }
                 else {
                     Constraints.topConstraint(control: btn, parent: viewActionItems, constant: topSpacing)
