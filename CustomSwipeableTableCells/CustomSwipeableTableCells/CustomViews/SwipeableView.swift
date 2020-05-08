@@ -33,11 +33,13 @@ class SwipeableView: UIView {
     
     weak var delegate: SwipeableViewDelegate?
     
+    //MARK:- Initialization
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addPanGesture()
     }
     
+    //MARK:- UISwipeGestureRecognizer
     private func addPanGesture() {
         leftSwipeGestureRecognizer = UISwipeGestureRecognizer.init(target: self, action: #selector(self.handleSwipe(_:)))
         leftSwipeGestureRecognizer.direction = .left
@@ -77,6 +79,7 @@ class SwipeableView: UIView {
         }
     }
     
+    //MARK:- Swiping Animations
     /* animateView- animates the card for the left, right or center according to new x point */
     private func animateView(for pointX: CGFloat) {
         UIView.animate(withDuration: duration) {

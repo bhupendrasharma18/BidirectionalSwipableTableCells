@@ -21,24 +21,18 @@ class CardCell: UITableViewCell {
     var centerConstraintViewAction: NSLayoutConstraint!
     let widthViewActionItems: CGFloat = UIScreen.main.bounds.size.width / 2 - 50
     
+    //MARK:- Constants
     let VIEW_ACTION_HEIGHT: CGFloat = 180
     let VIEW_ACTION_HORIZONTAL_SPACE: CGFloat = 100
     let BUTTON_HEIGHT: CGFloat = 44
     let BUTTON_WIDTH: CGFloat = 100
     let MIDDLE_SPACING: CGFloat = 5
     
-    var cardViewModel: CardViewModel? {
-        didSet {
-            guard let card = cardViewModel  else { return }
-            lblCardNumber.text = "\(card.cardNumber ?? "XXXX XXXX XXXX XXXX")"
-            lblName.text = "\(card.nameOnCard ?? "")"
-            createActionButtons()
-        }
-    }
     
+    //MARK: - Initialization
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
         cellAppearances()
         viewCard.delegate = self
         createActionItemsView()
@@ -74,6 +68,16 @@ class CardCell: UITableViewCell {
         viewContainer.bringSubviewToFront(viewCard)
     }
     
+    //MARK:- Configure Cell
+    var cardViewModel: CardViewModel? {
+        didSet {
+            guard let card = cardViewModel  else { return }
+            lblCardNumber.text = "\(card.cardNumber ?? "XXXX XXXX XXXX XXXX")"
+            lblName.text = "\(card.nameOnCard ?? "")"
+            createActionButtons()
+        }
+    }
+
     private func createActionButtons() {
         for subView in viewActionItems.subviews {
             subView.removeFromSuperview()
@@ -118,6 +122,7 @@ class CardCell: UITableViewCell {
         
     }
     
+    //MARK:- User Interactions
     @objc func actionButtonClicked(_ sender: UIButton!) {
         let index = sender.tag
         if let items = cardViewModel?.actionItems, index < items.count {
@@ -143,6 +148,7 @@ class CardCell: UITableViewCell {
 
 }
 
+//MARK:- SwipeableViewDelegate
 extension CardCell: SwipeableViewDelegate {
     func cardDidSwipe() {
         if cardDidSwipeInCell != nil {

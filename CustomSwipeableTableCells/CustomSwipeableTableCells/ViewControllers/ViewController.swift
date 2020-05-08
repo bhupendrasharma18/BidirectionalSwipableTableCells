@@ -17,9 +17,10 @@ class ViewController: UIViewController {
     var viewModel: CardsListViewModel?
     var isSwipeHintCompleted: Bool = false
     
+    // MARK:- View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         view.backgroundColor = color172027
         configureTableView()
         viewModel = CardsListViewModel()
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
         tblView.separatorStyle = .none
     }
     
+    // MARK:- User Interactions
     /* cardDidSwipe: updates the indexPath to keep track of recent swiped cell */
     private func cardDidSwipe(in cell: CardCell) {
         if let indexPath = tblView.indexPath(for: cell) {
@@ -42,15 +44,6 @@ class ViewController: UIViewController {
                 resetRecentCardCell()
             }
             lastSwipedIndexPath = indexPath
-        }
-    }
-    
-    /* resetRecentCardCell - method will reset swipe of the cell for lastSwipedIndexPath */
-    private func resetRecentCardCell() {
-        if let lastIndexPath = lastSwipedIndexPath {
-            if let lastCell: CardCell = tblView.cellForRow(at: lastIndexPath) as? CardCell {
-                lastCell.viewCard.resetCardView()
-            }
         }
     }
     
@@ -62,6 +55,16 @@ class ViewController: UIViewController {
             handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK:-
+    /* resetRecentCardCell - method will reset swipe of the cell for lastSwipedIndexPath */
+    private func resetRecentCardCell() {
+        if let lastIndexPath = lastSwipedIndexPath {
+            if let lastCell: CardCell = tblView.cellForRow(at: lastIndexPath) as? CardCell {
+                lastCell.viewCard.resetCardView()
+            }
+        }
     }
     
     /* animateSwipeView - will render swipe and back animation for cells one to give hint of swipable cells */
@@ -79,6 +82,7 @@ class ViewController: UIViewController {
 
 }
 
+// MARK:- UITableViewDataSource
 extension ViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -106,6 +110,7 @@ extension ViewController: UITableViewDataSource {
 
 }
 
+// MARK:- UITableViewDelegate
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -125,6 +130,7 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+// MARK:- UIScrollViewDelegate
 extension ViewController: UIScrollViewDelegate {
     /* This will reset last swiped cardCell when tableView is scrolled */
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
