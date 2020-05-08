@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     var timeDelay = 1.0
     var lastSwipedIndexPath: IndexPath?
     var viewModel: CardsListViewModel?
+    var isSwipeHintCompleted: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,9 +70,10 @@ class ViewController: UIViewController {
         if let cell: CardCell = tblView.cellForRow(at: indexPath) as? CardCell {
             cell.viewCard.swipeLeftAndReset()
         }
-        if UserDefaults.standard.object(forKey: "SwipeAnimation") == nil {
-            UserDefaults.standard.set("SwipeAnimation", forKey: "SwipeAnimation")
-        }
+        isSwipeHintCompleted = true
+//        if UserDefaults.standard.object(forKey: "SwipeAnimation") == nil {
+//            UserDefaults.standard.set("SwipeAnimation", forKey: "SwipeAnimation")
+//        }
     }
 
 }
@@ -106,7 +108,11 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if UserDefaults.standard.object(forKey: "SwipeAnimation") == nil {
+//        if UserDefaults.standard.object(forKey: "SwipeAnimation") == nil {
+//            timeDelay += 0.1
+//            self.perform(#selector(animateSwipeView), with: indexPath, afterDelay: timeDelay)
+//        }
+        if !isSwipeHintCompleted {
             timeDelay += 0.1
             self.perform(#selector(animateSwipeView), with: indexPath, afterDelay: timeDelay)
         }

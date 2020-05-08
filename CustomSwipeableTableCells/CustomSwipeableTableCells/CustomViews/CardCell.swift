@@ -65,7 +65,6 @@ class CardCell: UITableViewCell {
     private func createActionItemsView() {
         viewActionItems = UIView.init()
         viewContainer.addSubview(viewActionItems)
-//        viewActionItems.backgroundColor = .red
         viewActionItems.translatesAutoresizingMaskIntoConstraints = false
         Constraints.verticalConstraint(control: viewActionItems, parent: viewContainer, constant: 0)
         Constraints.widthConstraint(control: viewActionItems, controlWidth: widthViewActionItems)

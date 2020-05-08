@@ -26,7 +26,7 @@ class CardsListViewModel: NSObject {
     /* Create mock data for Cards and reload tableView */
     private func createData() {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) {
-            for i in 1...15 {
+            for i in 1...10 {
                 let card = CardModel.init(cardNumber: "438\(i) XXXX XXXX 056\(i)", name: "Bhupendra\(i) Sharma")
                 let actionItemsCount = (i % 3) + 1
                 var arr = [ActionItem]()
