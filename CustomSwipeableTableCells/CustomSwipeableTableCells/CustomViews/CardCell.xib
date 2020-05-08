@@ -58,6 +58,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="lblCardNumber" destination="RMN-IK-LKQ" id="JFN-AC-1c2"/>
                 <outlet property="viewCard" destination="hUG-iU-Fir" id="z16-n8-NxV"/>
                 <outlet property="viewContainer" destination="4wf-y5-jIv" id="1rc-hp-zWi"/>
             </connections>

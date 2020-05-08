@@ -14,12 +14,17 @@ class ViewController: UIViewController {
     let cardCellIdentifier = "CardCellIdentifier"
     var timeDelay = 1.0
     var lastSwipedIndexPath: IndexPath?
+    var viewModel: CardsListViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = color172027
         configureTableView()
+        viewModel = CardsListViewModel()
+        viewModel?.reloadTable = { [weak self] in
+            self?.tblView.reloadData()
+        }
     }
     
     private func configureTableView() {
@@ -48,6 +53,16 @@ class ViewController: UIViewController {
         }
     }
     
+    private func actionItemClicked(title: String?, message: String?) {
+        let alertController = UIAlertController(title: title ?? "", message: message ?? "", preferredStyle: .alert)
+        let okAction = UIAlertAction(
+            title: "OK",
+            style:.default,
+            handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     /* animateSwipeView - will render swipe and back animation for cells one to give hint of swipable cells */
     @objc private func animateSwipeView(indexPath: IndexPath?) {
         guard let indexPath = indexPath else { return }
@@ -68,14 +83,20 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return viewModel?.cards?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CardCell = tableView.dequeueReusableCell(withIdentifier: cardCellIdentifier) as! CardCell
         cell.selectionStyle = .none
+        if indexPath.row < viewModel?.cards?.count ?? 0 {
+            cell.cardViewModel = viewModel?.cards?[indexPath.row]
+        }
         cell.cardDidSwipeInCell = { [weak self] in
             self?.cardDidSwipe(in: cell)
+        }
+        cell.actionItemClicked = { [weak self] (title: String?, message: String?) in
+            self?.actionItemClicked(title: title, message: message)
         }
         return cell
     }
