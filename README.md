@@ -1,3 +1,3 @@
 # BidirectionalSwipableTableCells
 
-In this project, TableViewCells will be able to swipe in both directions with same action.
+![Swiping TableViewCells left/right demo](https://github.com/bhupendrasharma18/BidirectionalSwipableTableCells/blob/master/SwipableCustomCells.gif)
